@@ -892,6 +892,176 @@
                 margin-bottom: 0.5rem;
             }
         }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .project-flipper {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 3/2;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+            position: relative;
+        }
+
+        .project-card.open .project-flipper,
+        .project-card:hover .project-flipper {
+            transform: rotateY(180deg);
+        }
+
+        .project-front, .project-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .project-front {
+            background: var(--card-bg);
+        }
+
+        .project-back {
+            background: var(--card-bg);
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .project-image-wrapper {
+            position: relative;
+            height: 100%;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tech-badge {
+            background-color: var(--primary-brand);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+            color: var(--text-main);
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-link {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary-brand);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .project-link:hover {
+            color: var(--primary-light);
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .project-title {
+                font-size: 1rem;
+            }
+            .project-content {
+                padding: 0.1rem;
+            }
+            .project-description {
+                font-size: 0.5rem;
+            }
+
+            .project-back {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-description {
+                font-size: 0.75rem;
+                margin: 0;
+            }
+            .project-title {
+                font-size: 0.80rem;
+                margin: 0;
+            }
+            .project-link {
+                font-size: 0.85rem;
+                margin: 0;
+            }
+            .project-content {
+                padding: 0;
+
+            }
+
+            .tech-badge {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -971,45 +1141,76 @@
             </div>
         </section>
 
-        <section id="projects" class="section">
+       <section id="projects" class="section">
             <div class="container">
                 <h2 class="section-title animate">Projects</h2>
                 <div class="projects-grid">
-                    <div class="project-card animate" style="animation-delay: 0.1s">
+                <div class="project-card animate" style="animation-delay: 0.1s" data-tech="Laravel,React,MySQL">
+                    <div class="project-flipper">
+                    <div class="project-front">
+                        <div class="project-image-wrapper">
                         <img src="assets/ShatlehLogo.jpg" alt="Shatleh Platform" class="project-image">
-                        <div class="project-content">
+                        <div class="project-overlay">
                             <h3 class="project-title">Shatleh</h3>
-                            <p class="project-description">A comprehensive digital agricultural platform designed to <strong>streamline product sales</strong>, offer valuable <strong>educational content</strong>, and provide essential services like garden trimming. Built with <strong>Laravel</strong>, <strong>React</strong>, and <strong>MySQL</strong>, it features full bilingual (English/Arabic) support and a responsive design optimized for all devices.</p>
-                            <a href="https://github.com/MohAtiyyat/shatleh" target="_blank" rel="noopener noreferrer" class="project-link">
-                                View Project <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <div class="tech-badges"></div>
+                        </div>
                         </div>
                     </div>
+                    <div class="project-back">
+                        <div class="project-content">
+                        <h3 class="project-title">Shatleh</h3>
+                        <p class="project-description">A comprehensive digital agricultural platform designed to <strong>streamline product sales</strong>, offer valuable <strong>educational content</strong>, and provide essential services like garden trimming. Built with <strong>Laravel</strong>, <strong>React</strong>, and <strong>MySQL</strong>, it features full bilingual (English/Arabic) support and a responsive design optimized for all devices.</p>
+                        <a href="https://github.com/MohAtiyyat/shatleh" target="_blank" rel="noopener noreferrer" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
 
-                    <div class="project-card animate" style="animation-delay: 0.2s">
+                <div class="project-card animate" style="animation-delay: 0.2s" data-tech="PHP,MySQL,HTML5,CSS3">
+                    <div class="project-flipper">
+                    <div class="project-front">
+                        <div class="project-image-wrapper">
                         <img src="assets/goods.svg" alt="Goods Distribution System" class="project-image">
-                        <div class="project-content">
-                            <h3 class="project-title">Goods Distribution System</h3>
-                            <p class="project-description">Developed a robust system for <strong>managing goods distribution</strong> across multiple store branches, complete with <strong>real-time inventory tracking</strong> and efficient logistics planning. This project demonstrates strong backend engineering using <strong>PHP</strong> and <strong>MySQL</strong>, combined with <strong>HTML5</strong> and <strong>CSS3</strong> for the frontend.</p>
-                            <a href="https://github.com/mohammad-ariqat/Store_Management_System" target="_blank" rel="noopener noreferrer" class="project-link">
-                                View Project <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <div class="project-overlay">
+                            <h3 class="project-title">Store Management System</h3>
+                            <div class="tech-badges"></div>
+                        </div>
                         </div>
                     </div>
+                    <div class="project-back">
+                        <div class="project-content">
+                        <h3 class="project-title">Store Management System</h3>
+                        <p class="project-description">Developed a robust system for <strong>managing goods distribution</strong> across multiple store branches, complete with <strong>real-time inventory tracking</strong> and efficient logistics planning. This project demonstrates strong backend engineering using <strong>PHP</strong> and <strong>MySQL</strong>, combined with <strong>HTML5</strong> and <strong>CSS3</strong> for the frontend.</p>
+                        <a href="https://github.com/mohammad-ariqat/Store_Management_System" target="_blank" rel="noopener noreferrer" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
 
-                    <div class="project-card animate" style="animation-delay: 0.3s">
+                <div class="project-card animate" style="animation-delay: 0.3s" data-tech="Laravel,Blade">
+                    <div class="project-flipper">
+                    <div class="project-front">
+                        <div class="project-image-wrapper">
                         <img src="assets/job.png" alt="Job Listing Website" class="project-image">
-                        <div class="project-content">
+                        <div class="project-overlay">
                             <h3 class="project-title">Job Listing Website</h3>
-                            <p class="project-description">A dynamic online platform connecting employers with job seekers. It facilitates <strong>job postings</strong>, user authentication, and advanced job filtering, ensuring a seamless experience. Engineered using <strong>Laravel</strong> and <strong>Blade</strong> templating for a robust and scalable solution.</p>
-                            <a href="https://github.com/mohammad-ariqat/pixel-positions" target="_blank" rel="noopener noreferrer" class="project-link">
-                                View Project <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <div class="tech-badges"></div>
+                        </div>
                         </div>
                     </div>
+                    <div class="project-back">
+                        <div class="project-content">
+                        <h3 class="project-title">Job Listing Website</h3>
+                        <p class="project-description">A dynamic online platform connecting employers with job seekers. It facilitates <strong>job postings</strong>, user authentication, and advanced job filtering, ensuring a seamless experience. Engineered using <strong>Laravel</strong> and <strong>Blade</strong> templating for a robust and scalable solution.</p>
+                        <a href="https://github.com/mohammad-ariqat/pixel-positions" target="_blank" rel="noopener noreferrer" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </section>
+
 
         <section id="skills" class="section">
             <div class="container">
@@ -1320,6 +1521,34 @@
                 observer.observe(el);
             });
         });
+        
+      document.addEventListener('DOMContentLoaded', () => {
+    const projectCards = document.querySelectorAll('.project-card');
+
+    projectCards.forEach(card => {
+      const techList = card.getAttribute('data-tech').split(',');
+      const badgeContainer = card.querySelector('.tech-badges');
+      badgeContainer.innerHTML = '';
+      techList.forEach(tech => {
+        const badge = document.createElement('span');
+        badge.className = 'tech-badge';
+        badge.textContent = tech.trim();
+        badgeContainer.appendChild(badge);
+      });
+
+      card.addEventListener('click', e => {
+        if (e.target.closest('.project-link')) return;
+        projectCards.forEach(c => c.classList.remove('open'));
+        card.classList.add('open');
+      });
+    });
+
+    window.addEventListener('click', e => {
+      if (!e.target.closest('.project-card')) {
+        projectCards.forEach(c => c.classList.remove('open'));
+      }
+    });
+  });
     </script>
 </body>
 </html>
